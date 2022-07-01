@@ -72,13 +72,19 @@ class CustomSocket :
 	def register(self, image, name):
 		command = b'register'+self.SPLITTER
 		image = image[:,:,::-1].tobytes()
-		name = self.SPLITTER + bytes(name, 'utf-8')
+		name = self.SPLITTER + str(name).encode("utf-8")
 		self.sendMsg(self.sock, command + image + name)
+		result = self.recvMsg(self.sock)
+		result = result.decode('utf-8')
+		return json.loads(result)
 		
 	def detect(self, image):
 		command = b'detect'+self.SPLITTER
 		image = image[:,:,::-1].tobytes()
 		self.sendMsg(self.sock, command + image )
+		result = self.recvMsg(self.sock)
+		result = result.decode('utf-8')
+		return json.loads(result)
 		
 
 def main() :

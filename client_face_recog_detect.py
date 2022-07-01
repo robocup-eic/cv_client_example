@@ -7,13 +7,12 @@ from custom_socket import CustomSocket
 import json
 
 
-# host = socket.gethostname()
-host = "192.168.8.99"
+host = socket.gethostname()
 # WIT-yolov5 = 10002
 # Face-recog = 10006
 # Person-tracker = 11000
 # Object-tracker = 10008
-port = 10008
+port = 10006
 
 c = CustomSocket(host,port)
 c.clientConnect()
@@ -34,14 +33,15 @@ while cap.isOpened():
     print("Send")
 
     # WIT yolov5 person-tracker, object-tracker
-    msg = c.req(frame)
-    print(msg)
+    # msg = c.req(frame)
+    # print(msg)
 
 
     # Face-recog
-    # image = cv2.imread("elon.jpeg")
+    image = cv2.imread("elon.jpeg")
     # c.register(image, "elon") #hide this
-    # c.detect(frame)
+    msg = c.detect(frame)
+    print(msg)
 
     if cv2.waitKey(1) == ord("q"):
         cap.release()
