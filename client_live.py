@@ -18,7 +18,10 @@ port = 10008
 c = CustomSocket(host,port)
 c.clientConnect()
 
-cap = cv2.VideoCapture(2)
+cap = cv2.VideoCapture(2) # camera id
+if not cap.isOpened():
+    print("camera not found: try another camera id")
+
 cap.set(4,720)
 cap.set(3,1280)
 
